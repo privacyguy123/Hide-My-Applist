@@ -122,7 +122,7 @@ object ConfigManager {
     }
 
     fun updateTemplateAppliedApps(name: String, appliedList: List<String>) {
-        log.d(TAG, "updateTemplateAppliedApps: $name list = $appliedList")
+        Log.d(TAG, "updateTemplateAppliedApps: $name list = $appliedList")
         config.scope.forEach { (app, appInfo) ->
             if (appliedList.contains(app)) appInfo.applyTemplates.add(name)
             else appInfo.applyTemplates.remove(name)
