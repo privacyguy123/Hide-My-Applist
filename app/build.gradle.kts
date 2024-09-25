@@ -90,7 +90,8 @@ afterEvaluate {
 
 dependencies {
     implementation(projects.common)
-    runtimeOnly(projects.xposed)
+    implementation(project(":xposed"))
+    //runtimeOnly(projects.xposed)
 
     implementation(platform(libs.com.google.firebase.bom))
     implementation(libs.androidx.navigation.fragment.ktx)

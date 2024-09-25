@@ -14,6 +14,7 @@ private val encoder = Json {
 data class JsonConfig(
     var configVersion: Int = BuildConfig.CONFIG_VERSION,
     var detailLog: Boolean = false,
+    var disableLog: Boolean = false,
     var maxLogSize: Int = 512,
     var forceMountData: Boolean = true,
     val templates: MutableMap<String, Template> = mutableMapOf(),

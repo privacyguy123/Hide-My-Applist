@@ -24,8 +24,10 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
         var instance: HMAService? = null
     }
 
-    @Volatile
-    var logcatAvailable = false
+    // @Volatile
+    // Ensure logcatAvailable reflects the state of disableLog
+    var logcatAvailable: Boolean = false
+        get() = !config.disableLog // Now reflects the disableLog setting
 
     private lateinit var dataDir: String
     private lateinit var configFile: File
@@ -81,7 +83,8 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
         logFile.renameTo(oldLogFile)
         logFile.createNewFile()
 
-        logcatAvailable = true
+        // logcatAvailable = true
+        logcatAvailable = !config.disableLog
         logI(TAG, "Data dir: $dataDir")
     }
 
@@ -158,7 +161,7 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
     override fun stopService(cleanEnv: Boolean) {
         logI(TAG, "Stop service")
         synchronized(loggerLock) {
-            logcatAvailable = false
+            var logcatAvailable = false
         }
         synchronized(configLock) {
             frameworkHooks.forEach(IFrameworkHook::unload)

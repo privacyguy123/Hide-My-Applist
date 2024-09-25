@@ -61,6 +61,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "followSystemAccent" -> PrefManager.followSystemAccent
                 "blackDarkTheme" -> PrefManager.blackDarkTheme
                 "detailLog" -> ConfigManager.detailLog
+                "disableLog" -> ConfigManager.disableLog
                 "hideIcon" -> PrefManager.hideIcon
                 "appDataIsolation" -> CommonUtils.isAppDataIsolationEnabled
                 "voldAppDataIsolation" -> CommonUtils.isVoldAppDataIsolationEnabled
@@ -86,6 +87,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "followSystemAccent" -> PrefManager.followSystemAccent = value
                 "blackDarkTheme" -> PrefManager.blackDarkTheme = value
                 "detailLog" -> ConfigManager.detailLog = value
+                "disableLog" -> ConfigManager.disableLog = value
                 "forceMountData" -> ConfigManager.forceMountData = value
                 "hideIcon" -> PrefManager.hideIcon = value
                 "appDataIsolation" -> Unit

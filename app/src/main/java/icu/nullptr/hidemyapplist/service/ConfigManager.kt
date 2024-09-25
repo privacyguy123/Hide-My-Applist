@@ -7,6 +7,9 @@ import icu.nullptr.hidemyapplist.common.BuildConfig
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.ui.util.makeToast
+
+import icu.nullptr.hidemyapplist.xposed.*
+
 import java.io.File
 
 object ConfigManager {
@@ -45,6 +48,13 @@ object ConfigManager {
             config.detailLog = value
             saveConfig()
         }
+
+    var disableLog: Boolean
+        get() = config.disableLog
+        set(value) {
+            config.disableLog = value
+            saveConfig()
+        }    
 
     var maxLogSize: Int
         get() = config.maxLogSize
@@ -108,13 +118,13 @@ object ConfigManager {
     }
 
     fun updateTemplate(name: String, template: JsonConfig.Template) {
-        Log.d(TAG, "updateTemplate: $name list = ${template.appList}")
+        logD(TAG, "updateTemplate: $name list = ${template.appList}")
         config.templates[name] = template
         saveConfig()
     }
 
     fun updateTemplateAppliedApps(name: String, appliedList: List<String>) {
-        Log.d(TAG, "updateTemplateAppliedApps: $name list = $appliedList")
+        logD(TAG, "updateTemplateAppliedApps: $name list = $appliedList")
         config.scope.forEach { (app, appInfo) ->
             if (appliedList.contains(app)) appInfo.applyTemplates.add(name)
             else appInfo.applyTemplates.remove(name)
