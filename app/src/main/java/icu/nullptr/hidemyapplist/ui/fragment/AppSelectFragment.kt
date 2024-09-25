@@ -21,8 +21,6 @@ import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import kotlinx.coroutines.launch
 
-import icu.nullptr.hidemyapplist.xposed.*
-
 abstract class AppSelectFragment : Fragment(R.layout.fragment_app_select) {
 
     private val binding by viewBinding<FragmentAppSelectBinding>()
@@ -33,7 +31,7 @@ abstract class AppSelectFragment : Fragment(R.layout.fragment_app_select) {
     private var search = ""
 
     private fun handleBack(): Boolean {
-        logE("back", "handleBack?", Throwable())
+        Log.e("back", "handleBack?", Throwable())
     val searchView = binding.toolbar.menu.findItem(R.id.menu_search).actionView as SearchView
         return if (searchView.isIconified) {
             onBack()

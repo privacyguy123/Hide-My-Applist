@@ -9,8 +9,6 @@ import android.util.Log
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.IHMAService
 
-import icu.nullptr.hidemyapplist.xposed.*
-
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
@@ -22,8 +20,8 @@ object ServiceClient : IHMAService, DeathRecipient {
     private class ServiceProxy(private val obj: IHMAService) : InvocationHandler {
         override fun invoke(proxy: Any?, method: Method, args: Array<out Any?>?): Any? {
             val result = method.invoke(obj, *args.orEmpty())
-            if (result == null) logI(TAG, "Call service method ${method.name}")
-            else logI(TAG, "Call service method ${method.name} with result " + result.toString().take(20))
+            if (result == null) Log.i(TAG, "Call service method ${method.name}")
+            else Log.i(TAG, "Call service method ${method.name} with result " + result.toString().take(20))
             return result
         }
     }
@@ -53,14 +51,14 @@ object ServiceClient : IHMAService, DeathRecipient {
             val binder = reply.readStrongBinder()
             IHMAService.Stub.asInterface(binder)
         } catch (e: RemoteException) {
-            logD(TAG, "Failed to get binder")
+            Log.d(TAG, "Failed to get binder")
             null
         } finally {
             data.recycle()
             reply.recycle()
         }
         if (remote != null) {
-            logI(TAG, "Binder acquired")
+            Log.i(TAG, "Binder acquired")
             remote.asBinder().linkToDeath(this, 0)
             service = Proxy.newProxyInstance(
                 javaClass.classLoader,
@@ -73,7 +71,7 @@ object ServiceClient : IHMAService, DeathRecipient {
 
     override fun binderDied() {
         service = null
-        logE(TAG, "Binder died")
+        Log.e(TAG, "Binder died")
     }
 
     override fun asBinder() = service?.asBinder()

@@ -8,8 +8,6 @@ import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.ui.util.makeToast
 
-import icu.nullptr.hidemyapplist.xposed.*
-
 import java.io.File
 
 object ConfigManager {
@@ -118,13 +116,13 @@ object ConfigManager {
     }
 
     fun updateTemplate(name: String, template: JsonConfig.Template) {
-        logD(TAG, "updateTemplate: $name list = ${template.appList}")
+        Log.d(TAG, "updateTemplate: $name list = ${template.appList}")
         config.templates[name] = template
         saveConfig()
     }
 
     fun updateTemplateAppliedApps(name: String, appliedList: List<String>) {
-        logD(TAG, "updateTemplateAppliedApps: $name list = $appliedList")
+        log.d(TAG, "updateTemplateAppliedApps: $name list = $appliedList")
         config.scope.forEach { (app, appInfo) ->
             if (appliedList.contains(app)) appInfo.applyTemplates.add(name)
             else appInfo.applyTemplates.remove(name)
